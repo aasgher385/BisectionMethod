@@ -1,6 +1,6 @@
 """ Simple Bisection Algorithm
     This is a simple bisection algorithm that takes in a function and a bracket
-    and returns the root of the function.
+    and returns the root of the function with predefined tolerance 1e-8.
     Args:
         f: function
         a: lower bound
@@ -22,7 +22,6 @@ Pkg.add("Roots")
 # Load Packages
 using Printf
 using Roots
-using BenchmarkTools
 
 # Define Function to be Rooted
 # We considered f(x) = x²-2, x ∈ [0,2] with the solution x = 1.4142135623730951
