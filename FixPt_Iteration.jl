@@ -16,19 +16,22 @@
 
 # Import Packages
 import Pkg
-Pkg.add("Printf")
+
 Pkg.add("Plots")
-Pkg.add("LaTeXStrings")
+Pkg.add("Printf")
 Pkg.add("ForwardDiff")
+Pkg.add("LaTeXStrings")
+
 
 # Load Packages
-using Printf
 using Plots
-using LaTeXStrings
+using Printf
 using ForwardDiff
+using LaTeXStrings
 
-# Define Function to be Rooted
-# We considered f(x) = exp(-x), x ∈ [0,2] with the solution x = 0.567125341
+
+
+# We considered f(x) = x³+x-1, x ∈ [-2,2] with the solution x = 0.6823278038280193
 function f(x)
     return x^3 + x -1
 end
