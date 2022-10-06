@@ -50,8 +50,6 @@ function secant(f,x0,x1,tol)
 
     i = 0;
 
-    #display("Iter   xc       AbsError   RelError")
-
     @printf("_______________________________________\n \n");
     @printf("k      Root     Abs Err    Rel Error    \n");
     @printf("_______________________________________\n \n");
