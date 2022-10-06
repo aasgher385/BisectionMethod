@@ -30,14 +30,19 @@ using ForwardDiff
 # Define Function to be Rooted
 # We considered f(x) = exp(-x), x ∈ [0,2] with the solution x = 0.567125341
 function f(x)
-    return exp(-x)
+    return x^3 + x -1
+end
+
+# Modifying the function f(x)=0 to g(x)=x
+function g(x)
+    return 1/(x^2+1)
 end
 
 function FixPtIteration(x0, maxIter, TOL)
 
     k = 0; 
     Rp = 1; 
-    P = f(x0)
+    P = g(x0)
     df = ForwardDiff.derivative(f, x0)
 
     if abs(df) < 1
@@ -51,14 +56,24 @@ function FixPtIteration(x0, maxIter, TOL)
     @printf("_____________________________\n \n");
 
     while Rp > TOL && k < maxIter 
-        Pnew = f(P)
-        Rp = abs((Pnew-P)/P);
+        Pnew = g(P)
+        Rp = abs((Pnew-P)/Pnew)
         P = Pnew;
         k = k + 1;
-        @printf("%1.0f %1.9f %1.9f \n", k, P, Rp)
+        @printf("%1.0f %1.9f %1.9f \n", k, Pnew, Rp)
     end 
+    return P
 end 
 
 
-FixPtIteration(0.5, 200, 1e-4)
+res = FixPtIteration(0.5, 200, 1e-4)
 
+
+k1 = find_zero(f, (-2, 2), FalsePosition(), verbose=true)
+# Plot the function
+x = range(-2,stop=2,length=1000)
+plot(x,f.(x),linewidth=3.0,xlabel=L"x",label=L"f(x)", legend=:topleft)
+plot!([res],[0], markershape=:circle,markercolor=:red, markerstrokecolor=:black, markerstrokewidth=3,
+	label= "Root",markersize=10)
+plot!([k1],[0], markershape=:star,markercolor=:blue, markerstrokecolor=:black, markerstrokewidth=3,
+	label= "Root by using Roots.jl",markersize=6)
