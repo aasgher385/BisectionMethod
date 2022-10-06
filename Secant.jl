@@ -20,7 +20,7 @@ import Pkg
 
 Pkg.add("Printf")
 Pkg.add("Roots")
-Pkg.add("Plots.jl")
+Pkg.add("Plots")
 Pkg.add("LaTeXStrings")
 
 # Load Packages
@@ -50,7 +50,11 @@ function secant(f,x0,x1,tol)
 
     i = 0;
 
-    display("Iter   xc       AbsError   RelError")
+    #display("Iter   xc       AbsError   RelError")
+
+    @printf("_______________________________________\n \n");
+    @printf("k      Root     Abs Err    Rel Error    \n");
+    @printf("_______________________________________\n \n");
 
     while abs(xc-xold) > tol;
 
@@ -69,14 +73,20 @@ function secant(f,x0,x1,tol)
 
         @printf("%1.0f %1.9f %1.9f %1.9f \n", i, xc, AbsErr, RelErr)
 
-    
     end
+
+    return xc
     
 end 
 
-secant(f,0.0,2.0,1e-8)
+res = secant(f,0.0,2.0,1e-8)
+
+k1 = find_zero(f, (0,2), Order1())
 
 # Plot the function
 x = range(0,stop=2,length=1000)
-plot(x,f.(x),linewidth=2.0,xlabel=L"x",label=L"f(x)", legend=:right)
-annotate!([(sqrt(2), 0, text(L"\sqrt{2}",12))])
+plot(x,f.(x),linewidth=3.0,xlabel=L"x",label=L"f(x)", legend=:topleft)
+plot!([res],[0], markershape=:circle,markercolor=:red, markerstrokecolor=:black, markerstrokewidth=3,
+	label= "Root",markersize=10)
+plot!([k1],[0], markershape=:star,markercolor=:blue, markerstrokecolor=:black, markerstrokewidth=3,
+	label= "Root by using Secant Method from Roots.jl",markersize=6)
