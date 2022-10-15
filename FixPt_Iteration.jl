@@ -19,8 +19,10 @@ import Pkg
 
 Pkg.add("Plots")
 Pkg.add("Printf")
+Pkg.add("Roots")
 Pkg.add("ForwardDiff")
 Pkg.add("LaTeXStrings")
+
 
 
 # Load Packages
@@ -28,6 +30,7 @@ using Plots
 using Printf
 using ForwardDiff
 using LaTeXStrings
+using Roots
 
 
 
@@ -80,3 +83,6 @@ plot!([res],[0], markershape=:circle,markercolor=:red, markerstrokecolor=:black,
 	label= "Root",markersize=10)
 plot!([k1],[0], markershape=:star,markercolor=:blue, markerstrokecolor=:black, markerstrokewidth=3,
 	label= "Root by using Roots.jl",markersize=6)
+
+
+
